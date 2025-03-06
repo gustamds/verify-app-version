@@ -1,4 +1,4 @@
-package com.verifyversion
+package com.github.android
 
 import android.os.Build
 import android.os.Bundle

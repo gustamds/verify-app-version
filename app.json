@@ -2,6 +2,15 @@
   "expo": {
     "name": "VerifyVersion",
     "slug": "VerifyVersion",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "android": {
+      "package": "com.github.android"
+    },
+    "ios": {
+      "bundleIdentifier": "com.github.android"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
