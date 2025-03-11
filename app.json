@@ -7,7 +7,21 @@
       "package": "com.github.android"
     },
     "ios": {
-      "bundleIdentifier": "com.github.android"
+      "bundleIdentifier": "com.github.stormbreaker.prod",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "itms-apps"
+        ]
+      }
+    },
+    "extra": {
+      "iosAppStoreId": "1477376905",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e8cbcc82-7edd-4015-81d3-13aaba727ba9"
+      }
     },
     "plugins": [
       "expo-router"

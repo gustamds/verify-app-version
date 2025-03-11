@@ -9,7 +9,7 @@ export function Button({ onPress, title }) {
         borderWidth: 1,
         padding: 10,
         borderRadius: 5,
-        width: 100,
+        width: 300,
         height: 50,
         justifyContent: "center",
         alignItems: "center",

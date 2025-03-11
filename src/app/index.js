@@ -44,16 +44,37 @@ export default function Index() {
 
   async function checkForUpdate() {
     try {
-      // Get current and latest versions
+      // Get current version - works on both platforms
       const currentVersion = VersionCheck.getCurrentVersion();
-      const latestVersion = await VersionCheck.getLatestVersion();
 
-      console.log("Current version:", currentVersion);
-      console.log("Latest version:", latestVersion);
+      // Set up platform-specific configuration
+      let latestVersionConfig = {};
 
-      // Check if update is needed
-      const needUpdateResult = await VersionCheck.needUpdate();
-      console.log("Update needed:", needUpdateResult.isNeeded);
+      if (Platform.OS === "ios") {
+        // For iOS we need the App Store ID or bundle identifier
+        latestVersionConfig = {
+          provider: "appStore",
+          // Try to get the bundle ID from Expo config
+          appID: Constants.expoConfig?.ios?.bundleIdentifier,
+        };
+      } else if (Platform.OS === "android") {
+        // For Android we need the package name
+        latestVersionConfig = {
+          provider: "playStore",
+          packageName: Constants.expoConfig?.android?.package,
+        };
+      }
+
+      // Get latest version with platform-specific config
+      const latestVersion = await VersionCheck.getLatestVersion(
+        latestVersionConfig
+      );
+
+      // Check if update is needed using same configuration
+      const needUpdateResult = await VersionCheck.needUpdate({
+        ...latestVersionConfig,
+        currentVersion,
+      });
 
       if (needUpdateResult.isNeeded) {
         setUpdateInfo({
@@ -95,7 +116,7 @@ export default function Index() {
         <View style={styles.container}>
           <Text>Welcome let's check the version of your app!</Text>
           <Button
-            title="updatea app"
+            title="Update App"
             onPress={() => router.navigate("/screens/update-app")}
           ></Button>
         </View>
